@@ -1,0 +1,15 @@
+{
+  "redis_ip" : "127.0.0.1",
+  "redis_port" : 6379,
+  "redis_pass" : "",
+
+  "redis_tag" : "error_log_",
+
+  "corp_id"   : "xxx",
+  "agents"    : {
+    "1000002": "xxx",
+    "1000003": "xxx"
+  },
+
+  "base_url"       : "https://xxx/"
+}
