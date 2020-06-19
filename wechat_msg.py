@@ -6,9 +6,9 @@ import redis
 import requests
 import time
 import re
-import json
+import json5
 with open('cfg.json','r') as f:
-    cfg=json.load(f)
+    cfg=json5.load(f)
 
 pool=redis.ConnectionPool(host=cfg['redis_ip'],port=cfg['redis_port'],password=cfg['redis_pass'])
 redisClient=redis.StrictRedis(connection_pool=pool)
@@ -70,8 +70,10 @@ def send():
         return 'sendkey is invaliad, please contact with admin to check sendkey'
     #获取access_token
     token_url="https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s"%(cfg['corp_id'],secret)
+    print(token_url)
     result=requests.get(token_url)
     dict_result=result.json()
+    print(dict_result)
     access_token=dict_result['access_token']
 
     #生成通过post请求发送消息的url
@@ -87,7 +89,7 @@ def send():
             "btntxt":"详情"
         },
     }
-    data = json.dumps(post_data,quote_keys=True)
+    data = json5.dumps(post_data,quote_keys=True)
     headers = {'content-type':'application/json','charset':'utf-8'}
     result = requests.post(post_url,data=data,headers=headers)
     return result.text,result.status_code,result.headers.items()
